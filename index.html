@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <section class="form signup">
+            <header>Realtime Chat App</header>
+            <form action="php/login.php" method="POST">
+                <div class="field input">
+                    <label>Email Address</label>
+                    <input type="text" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="field input">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="field button">
+                    <input type="submit" value="Login">
+                </div>
+            </form>
+            <div class="link">Not yet signed up? <a href="index.php">Signup now</a></div>
+        </section>
+    </div>
+    <script>
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch('php/login.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "success") {
+                    window.location.href = "users.php";
+                } else {
+                    alert(data);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
